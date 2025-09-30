@@ -11,12 +11,26 @@
         <h1>DUBBIOGUSTO</h1>
     </header>
     <main>
-    </main>
+        </main>
     <footer>
         &copy; <span id="year"></span> DUBBIOGUSTO
     </footer>
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+            // Animazione dinamica della scritta DUBBIOGUSTO
+            const title = document.querySelector('h1');
+            let grow = true;
+            let size = 3;
+            setInterval(() => {
+                if (grow) {
+                    size += 0.05;
+                    if (size >= 4.5) grow = false;
+                } else {
+                    size -= 0.05;
+                    if (size <= 3) grow = true;
+                }
+                title.style.fontSize = size + 'rem';
+            }, 40);
+        </script>
 </body>
 </html>
