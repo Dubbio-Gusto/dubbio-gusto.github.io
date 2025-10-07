@@ -8,16 +8,13 @@
 </head>
 <body>
     <main>
-        <div class="hero">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Immagine di copertina" class="hero-img">
-            <div class="hero-overlay">
-                <h1>DUBBIOGUSTO</h1>
+        <div class="center-content">
+            <h1 class="kindergarten-title">dubbio gusto</h1>
+            <div class="buttons">
+                <a href="#eventi" class="btn">Eventi</a>
+                <a href="#shop" class="btn">Shop</a>
+                <a href="#chi-siamo" class="btn">Chi siamo</a>
             </div>
-        </div>
-        <div class="buttons">
-            <a href="#eventi" class="btn">Eventi</a>
-            <a href="#shop" class="btn">Shop</a>
-            <a href="#chi-siamo" class="btn">Chi siamo</a>
         </div>
     </main>
     <footer>
@@ -25,20 +22,6 @@
     </footer>
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
-            // Animazione dinamica della scritta DUBBIOGUSTO
-            const title = document.querySelector('h1');
-            let grow = true;
-            let size = 3;
-            setInterval(() => {
-                if (grow) {
-                    size += 0.05;
-                    if (size >= 4.5) grow = false;
-                } else {
-                    size -= 0.05;
-                    if (size <= 3) grow = true;
-                }
-                title.style.fontSize = size + 'rem';
-            }, 40);
         </script>
 </body>
 </html>

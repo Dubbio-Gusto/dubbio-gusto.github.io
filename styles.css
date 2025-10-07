@@ -1,12 +1,105 @@
+.center-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+    padding-top: 12vh;
+}
+.buttons {
+    position: fixed;
+    left: 0;
+    bottom: 48px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    max-width: 900px;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    z-index: 101;
+    pointer-events: auto;
+}
+.kindergarten-title {
+    font-family: 'Kindergarten', cursive !important;
+    color: #111;
+    font-size: 4rem;
+    font-weight: normal;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+    text-transform: lowercase;
+    text-align: center;
+    display: block;
+}
+@font-face {
+    font-family: 'Kindergarten';
+    src: url('fonts/kindergarten.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* Centra contenuto principale */
+.center-content h1 {
+    color: #111;
+    font-size: 4rem;
+    font-weight: normal;
+    font-family: 'Kindergarten', cursive;
+    margin-bottom: 40px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: url('https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-    background-size: cover;
+    font-family: 'Kindergarten', cursive;
+    background: url('images/bambino.png') repeat;
+    background-size: 320px 320px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('images/bambino.png') repeat;
+    background-size: 320px 320px;
+    filter: blur(6px);
+    z-index: 0;
+    pointer-events: none;
+}
+.center-content, .buttons, footer {
+    position: relative;
+    z-index: 2;
+}
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: inherit;
+    filter: blur(6px);
+    z-index: 0;
+    pointer-events: none;
 }
 
 .hero {
@@ -66,16 +159,20 @@ body {
     gap: 32px;
     margin: 32px auto 0 auto;
     max-width: 900px;
+    background: none;
+    padding: 0;
+    box-shadow: none;
 }
 .btn {
-    background: #43c6ac;
+    background: rgba(0, 51, 204, 0.45);
     color: #fff;
     padding: 18px 38px;
-    border-radius: 12px;
+    border-radius: 0;
     font-size: 1.3rem;
+    font-family: 'Kindergarten', cursive;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(67,198,172,0.15);
+    box-shadow: 0 2px 8px rgba(0,51,204,0.10);
     transition: background 0.2s, transform 0.2s;
     border: none;
     outline: none;
@@ -107,10 +204,16 @@ main {
 }
 
 footer {
-    background: rgba(255,255,255,0.7);
-    color: #43c6ac;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
     text-align: center;
-    padding: 20px 0;
-    font-size: 1.1rem;
-    box-shadow: 0 -2px 8px rgba(67,198,172,0.15);
+    padding: 2px 0 1px 0;
+    font-size: 0.55rem;
+    font-family: 'Kindergarten', cursive;
+    box-shadow: 0 -2px 8px rgba(67,198,172,0.10);
+    z-index: 100;
 }
