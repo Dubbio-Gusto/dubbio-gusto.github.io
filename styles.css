@@ -12,11 +12,14 @@ body {
     position: relative;
     width: 100%;
     max-width: 900px;
-    margin: 40px auto 0 auto;
     height: 350px;
     box-shadow: 0 4px 24px rgba(67,198,172,0.18);
     border-radius: 24px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 60px auto 0 auto;
 }
 .hero-img {
     width: 100%;
