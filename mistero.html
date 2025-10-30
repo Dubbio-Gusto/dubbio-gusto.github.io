@@ -1,91 +1,59 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Praticamentoquestoè</title>
-<div style="max-width: 500px; margin: auto;">
-  <iframe 
-    id="bandcamp-player"
-    style="border: 0; width: 100%; height: 42px;"
-    src="https://bandcamp.com/EmbeddedPlayer/album=2950545204/size=small/bgcol=333333/linkcol=e99708/track=2488099964/transparent=true/"
-    seamless
-  >
-    <a href="https://jascoq.bandcamp.com/album/build-spring-24">
-      Build spring &#39;24 by JascoQ, Khalil, SadTissot
-    </a>
-  </iframe>
-</div>
-
-<script>
-  // Tentativo di avviare il player dopo un'interazione dell'utente
-  document.addEventListener('click', () => {
-    const iframe = document.getElementById('bandcamp-player');
-    try {
-      iframe.contentWindow.postMessage({ command: 'play' }, '*');
-    } catch (e) {
-      console.warn('Non è possibile controllare il player Bandcamp direttamente.');
-    }
-  }, { once: true });
-</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DUBBIOGUSTO — Mistero</title>
+  <link rel="stylesheet" href="css/styles.css">
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    #preview {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    #preview img {
-      max-width: 200px;
-      max-height: 200px;
-      border-radius: 10px;
-      object-fit: cover;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-        .immagini {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    img {
-      max-width: 1080px;
-      max-height: 720px;
-      border-radius: 10px;
-      object-fit: cover;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+    :root{--bg:#f8f8f8;--muted:#555}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#222;display:flex;flex-direction:column;min-height:100vh}
+    .container{max-width:1100px;margin:0 auto;padding:20px;width:100%;box-sizing:border-box}
+    .header{text-align:center;padding:20px 10px}
+    h1{font-size:clamp(1.6rem,4vw,2.4rem);margin:.2rem 0}
+    h2{font-size:clamp(1rem,3vw,1.25rem);margin:0;color:var(--muted);font-weight:400}
+    .player-wrap{max-width:500px;margin:16px auto}
+    .player-wrap iframe{width:100%;height:42px;border:0}
+    .immagini{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:18px}
+    .immagini img{max-width:100%;height:auto;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+    @media(min-width:700px){.immagini img{width:320px;height:auto}}
+    .footer{margin-top:24px;padding:16px;text-align:center;font-size:0.9rem;color:#666}
   </style>
 </head>
 <body>
-    <h1>UUUUUUUU CHE MISTERO</h1>
-  <h2>Non c'è niente qui, ma ti meriti comunque un'immagine carina!</h2>
+  <div class="container">
+    <header class="header">
+      <h1>UUUUUUUU CHE MISTERO</h1>
+      <h2>Non c'è niente qui, ma ti meriti comunque un'immagine carina!</h2>
+    </header>
 
-  <div class="immagini">
-    <!-- Qui puoi mettere le tue immagini -->
-    <img src="/css/images/DEV_ALIENI.gif" alt="Immagine locale 1">
+    <div class="player-wrap">
+      <iframe
+        id="bandcamp-player"
+        src="https://bandcamp.com/EmbeddedPlayer/album=2950545204/size=small/bgcol=333333/linkcol=e99708/track=2488099964/transparent=true/"
+        seamless
+      ></iframe>
+    </div>
+
+    <div class="immagini">
+      <img src="css/images/DEV_ALIENI.gif" alt="Immagine locale 1">
+    </div>
+
+    <footer class="footer">&copy; <span id="year"></span> DUBBIOGUSTO</footer>
   </div>
-  </style>
-</head>
 
+  <script>
+    // Tentativo di avviare il player dopo un'interazione dell'utente
+    document.addEventListener('click', () => {
+      const iframe = document.getElementById('bandcamp-player');
+      try {
+        iframe.contentWindow.postMessage({ command: 'play' }, '*');
+      } catch (e) {
+        console.warn('Non è possibile controllare il player Bandcamp direttamente.');
+      }
+    }, { once: true });
 
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
