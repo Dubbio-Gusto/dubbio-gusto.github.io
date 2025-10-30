@@ -1,208 +1,127 @@
-.center-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 2;
-    padding-top: 12vh;
-}
-.buttons {
-    position: fixed;
-    left: 0;
-    bottom: 48px;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    max-width: 900px;
-    background: none;
-    padding: 0;
-    box-shadow: none;
-    z-index: 101;
-    pointer-events: auto;
-}
-.kindergarten-title {
-    font-family: 'Kindergarten', cursive !important;
-    color: #111;
-    font-size: 4rem;
-    font-weight: normal;
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-    text-shadow: none;
-    text-transform: lowercase;
-    text-align: center;
-    display: block;
-}
+/* Styles puliti per DubbioGusto
+   - layout a due colonne (titolo a sinistra, pulsanti a destra)
+   - pulsanti semplici, squadrati con micro-animazione hover
+   - scritta laterale "DUBBIO GUSTO ???" visibile su desktop
+   - responsive: si impila su mobile
+*/
+
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+
 @font-face {
     font-family: 'Kindergarten';
     src: url('fonts/kindergarten.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
-/* Centra contenuto principale */
-.center-content h1 {
-    color: #111;
-    font-size: 4rem;
-    font-weight: normal;
-    font-family: 'Kindergarten', cursive;
-    margin-bottom: 40px;
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-    text-shadow: none;
-}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Kindergarten', cursive;
+    font-family: 'Kindergarten', Arial, Helvetica, sans-serif;
     background: url('images/bambino.png') repeat;
-    background-size: 320px 320px;
+    background-size: 512px 512px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     position: relative;
     overflow-x: hidden;
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('images/bambino.png') repeat;
-    background-size: 320px 320px;
-    filter: blur(6px);
-    z-index: 0;
-    pointer-events: none;
-}
-.center-content, .buttons, footer {
-    position: relative;
-    z-index: 2;
-}
+    color: #14213d;
 }
 
-body::before {
-    content: "";
+/* scritta verticale sul lato sinistro */
+.side-tag {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: inherit;
-    filter: blur(6px);
-    z-index: 0;
+    left: 6px; /* dentro la finestra */
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-size: 1.05rem;
+    color: rgba(20,33,61,0.28);
+    letter-spacing: 6px;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(255,255,255,0.06);
+    padding: 4px 10px;
+    z-index: 300;
     pointer-events: none;
 }
+@media (max-width: 900px) { .side-tag { display: none; } }
 
-.hero {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    height: 350px;
-    box-shadow: 0 4px 24px rgba(67,198,172,0.18);
-    border-radius: 24px;
-    overflow: hidden;
+/* layout principale */
+.container-two {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 60px auto 0 auto;
-}
-.hero-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.25);
-}
-.hero-overlay h1 {
-    color: #fff;
-    font-size: 4rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 16px #43c6ac, 0 0 24px #f8ffae;
-    margin: 0;
-    letter-spacing: 4px;
-    background: rgba(67,198,172,0.45);
-    padding: 18px 48px;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px rgba(67,198,172,0.18);
-}
-.hero-overlay h1 {
-    color: #fff;
-    font-size: 4rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 16px #43c6ac, 0 0 24px #f8ffae;
-    margin: 0;
-    letter-spacing: 4px;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
     gap: 32px;
-    margin: 32px auto 0 auto;
-    max-width: 900px;
-    background: none;
-    padding: 0;
-    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    min-height: calc(100vh - 60px);
 }
+.container-two .left {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* titolo a sinistra */
+    padding-left: 40px;
+}
+.kindergarten-title {
+    font-family: 'Kindergarten', Arial, sans-serif;
+    color: #14213d;
+    font-size: 4.4rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.container-two .right-panel {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+}
+
+.right-panel .buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    width: 100%;
+    max-width: 700px;
+    align-items: stretch;
+}
+
+/* bottoni semplici, squadrati */
 .btn {
-    background: rgba(0, 51, 204, 0.45);
-    color: #fff;
-    padding: 18px 38px;
-    border-radius: 0;
-    font-size: 1.3rem;
-    font-family: 'Kindergarten', cursive;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,51,204,0.10);
-    transition: background 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 4px; /* leggermente squadrato */
+    box-sizing: border-box;
+    color: #ffffff;
+    background: #19547b;
     border: none;
-    outline: none;
+    box-shadow: 0 6px 12px rgba(25,84,123,0.08);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 160ms ease;
 }
 .btn:hover {
-    background: #2e8b7d;
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(25,84,123,0.16);
+    background-color: #123b52;
 }
 
-header {
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 2px 8px rgba(67,198,172,0.15);
-    padding: 60px 0 40px 0;
-    text-align: center;
+.btn.ghost {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: none;
 }
 
-h1 {
-    color: #43c6ac;
-    font-size: 3rem;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin: 0;
-    transition: font-size 0.5s cubic-bezier(.68,-0.55,.27,1.55);
-    text-shadow: 2px 2px 8px #f8ffae, 0 0 10px #43c6ac;
-}
-
-main {
-    flex: 1;
-}
-
+/* footer */
 footer {
     position: fixed;
     left: 0;
@@ -211,9 +130,29 @@ footer {
     background: rgba(0,0,0,0.6);
     color: #fff;
     text-align: center;
-    padding: 2px 0 1px 0;
-    font-size: 0.55rem;
-    font-family: 'Kindergarten', cursive;
-    box-shadow: 0 -2px 8px rgba(67,198,172,0.10);
-    z-index: 100;
+    padding: 4px 0;
+    font-size: 0.7rem;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+    z-index: 200;
 }
+
+/* responsive */
+@media (min-width: 1100px) {
+    .right-panel .buttons { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
+    .kindergarten-title { font-size: 5rem; }
+    .container-two { padding: 80px; }
+}
+@media (max-width: 900px) {
+    .container-two { flex-direction: column; padding: 24px; }
+    .left { order: 1; width: 100%; justify-content: center; padding-left: 0; }
+    .right-panel { order: 2; width: 100%; }
+    .right-panel .buttons { grid-template-columns: repeat(2, 1fr); max-width: 100%; gap: 12px; }
+    .kindergarten-title { font-size: 3.2rem; text-align: center; }
+    .btn { padding: 12px 14px; }
+}
+@media (max-width: 480px) {
+    .right-panel .buttons { grid-template-columns: 1fr; }
+    .kindergarten-title { font-size: 2.4rem; }
+}
+
+/* fine */
