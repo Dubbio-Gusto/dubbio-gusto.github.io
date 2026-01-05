@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prodotti</title>
+  <link href="https://fonts.cdnfonts.com/css/crazy" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: bold;
+      transition: color 0.3s, background 0.3s;
+      font-family: 'Crazy', sans-serif;
+    }
+
+    .content {
+      padding: 2rem;
+      height: 200vh; /* per abilitare scroll */
+    }
+
+    #canvasWrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    canvas {
+      border: 1px solid #ccc;
+      cursor: grab;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" id="hero">
+    CARICA LA TUA IMMAGINE NELLO SPAZIO ANGUSTO
+  </div>
+
+  <div class="content">
+    <input type="file" id="imageLoader" accept="image/*">
+    <div id="canvasWrapper">
+      <canvas id="imageCanvas"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Scroll color effect basato sulla posizione della hero
+    window.addEventListener('scroll', () => {
+      const hero = document.getElementById('hero');
+      const rect = hero.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const scrollFactor = 1 - (rect.top / windowHeight);
+      const clamped = Math.max(0, Math.min(1, scrollFactor));
+      const r = Math.floor(255 * clamped);
+      const g = Math.floor(255 * (1 - clamped));
+      const b = Math.floor(128 + 127 * Math.sin(clamped * Math.PI));
+      hero.style.color = `rgb(${r}, ${g}, ${b})`;
+      hero.style.background = `rgb(${255 - r}, ${b}, ${g})`;
+    });
+
+    // Image loading and distortion logic
+    const imageLoader = document.getElementById('imageLoader');
+    const canvas = document.getElementById('imageCanvas');
+    const ctx = canvas.getContext('2d');
+    let img = new Image();
+    let dragging = false;
+    let offsetX, offsetY;
+
+    imageLoader.addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        img = new Image();
+        img.onload = function() {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+        }
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      dragging = true;
+      offsetX = e.offsetX;
+      offsetY = e.offsetY;
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      dragging = false;
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (dragging) {
+        const dx = e.offsetX - offsetX;
+        const dy = e.offsetY - offsetY;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.setTransform(1, dy * 0.001, dx * 0.001, 1, 0, 0); // Simple skew effect
+        ctx.drawImage(img, 0, 0);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+    });
+  </script>
+</body>
+</html>
