@@ -36,6 +36,9 @@
       .header{padding:12px}
       .home-button-container{margin-top:30px;padding:15px}
     }
+    /* small fixed homepage button (same as prodotti.html) */
+    .small-home{position:fixed;right:12px;bottom:36px;z-index:300;max-width:140px;padding:8px 12px;font-size:0.9rem;border-radius:8px;background:rgba(9,58,218,0.85);color:#fff;text-align:center;text-decoration:none;font-family:inherit}
+    .small-home:hover{background:rgba(46,139,125,0.95)}
   </style>
 </head>
 <body data-page="oroscopo">
@@ -59,7 +62,6 @@
 
     <div class="home-button-container">
       <button id="genera-dubbio" class="btn" style="cursor:pointer">GENERA DUBBIO ASTROLOGICO</button>
-      <a href="index.html" class="btn">Homepage</a>
     </div>
 
     <footer style="text-align:center;margin-top:22px;color:#666">&copy; <span id="year"></span> DUBBIOGUSTO</footer>
@@ -116,5 +118,6 @@
       try{ iframe.contentWindow.postMessage({command:'play'},'*') }catch(e){/*non possibile*/}
     },{once:true});
   </script>
+  <a href="index.html" class="small-home">Homepage</a>
 </body>
 </html>

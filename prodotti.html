@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodotti</title>
   <link href="https://fonts.cdnfonts.com/css/crazy" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
   <style>
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: sans-serif;
       overflow-x: hidden;
     }
 
@@ -39,6 +39,10 @@
       border: 1px solid #ccc;
       cursor: grab;
     }
+
+    /* small fixed homepage button for this page */
+    .small-home{position:fixed;right:12px;bottom:12px;z-index:300;max-width:140px;padding:8px 12px;font-size:0.9rem;border-radius:8px;background:rgba(9,58,218,0.85);color:#fff;text-align:center;text-decoration:none;font-family:inherit}
+    .small-home:hover{background:rgba(46,139,125,0.95)}
   </style>
 </head>
 <body data-page="prodotti">
@@ -113,7 +117,7 @@
   </script>
   <aside class="right-panel">
     <div class="buttons">
-      <a href="index.html" class="btn">Homepage</a>
+      <a href="index.html" class="btn small-home">Homepage</a>
     </div>
   </aside>
 </body>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Eventi — DUBBIOGUSTO</title>
+  <style>
+    /* Page-specific responsive styles */
+    body{margin:0;background:#f8f8f8;color:#222}
+    .container{max-width:1100px;margin:36px auto;padding:18px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:18px}
+    h1{font-size:clamp(1.6rem,4vw,2.8rem);margin:0}
+    h2{font-size:1.1rem;color:#666;margin:0}
+
+    .immagini{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;width:100%}
+    .immagini img{width:clamp(180px,40vw,560px);height:auto;border-radius:12px;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+
+    /* preview thumbnails area (if any) */
+    #preview{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:100%}
+    #preview img{width:120px;height:120px;object-fit:cover;border-radius:8px}
+
+    /* small fixed homepage button */
+    .small-home{position:fixed;right:16px;bottom:48px;z-index:300;max-width:140px;padding:8px 12px;font-size:0.9rem;border-radius:8px;background:rgba(9,58,218,0.95);color:#fff;text-align:center;text-decoration:none;display:inline-block;font-family:inherit}
+    .small-home:hover{background:rgba(46,139,125,0.95)}
+
+    @media(max-width:600px){
+      .container{margin:20px;padding:12px}
+      .immagini img{width:clamp(160px,80vw,420px)}
+      .small-home{right:12px;bottom:56px}
+    }
+  </style>
+</head>
+<body data-page="eventi">
+  <div class="container">
+    <header style="text-align:center;">
+      <h1>Eventi in arrivo</h1>
+      <h2>Rimani aggiornato sulle nostre iniziative</h2>
+    </header>
+
+    <section class="immagini" aria-label="Galleria eventi">
+      <img src="/css/images/dgsa.png" alt="Locandina evento 1">
+      <img src="/css/images/DG_logo.png" alt="Logo DubbioGusto">
+    </section>
+
+    <section id="preview" aria-hidden="true"></section>
+  </div>
+
+  <a href="index.html" class="small-home">Homepage</a>
+</body>
+</html>
