@@ -2,18 +2,56 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Contatti</title>
+    <title>Canale Telegram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #0088cc;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;   /* dimensione ideale del QR su mobile */
+            height: auto;
+        }
+    </style>
 </head>
-<body>
+<body data-page="contatti">
 
     <p>
-        Link al canale telegram:
+        Link al canale telegram:<br>
         <a href="https://t.me/dubbiogustospazioangusto" target="_blank">
             https://t.me/dubbiogustospazioangusto
         </a>
     </p>
 
-    <img src="/css/images/QRCODE_telegramDUBBIO.png" alt="QR Code Telegram">
+    <img src="css/images/QRCODE_telegramDUBBIO.png" alt="QR Code Telegram">
+
+    <aside class="right-panel">
+                <div class="buttons">
+                    <a href="index.html" class="btn">Homepage</a>
+                </div>
+            </aside>
 
 </body>
 </html>

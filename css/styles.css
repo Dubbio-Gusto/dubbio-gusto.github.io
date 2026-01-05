@@ -27,6 +27,43 @@ body {
     color: #14213d;
 }
 
+/* Background specifici per ogni pagina */
+body[data-page="home"] {
+    background: url('images/bambino.png') repeat !important;
+    background-size: 512px 512px !important;
+}
+
+body[data-page="contatti"] {
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+body[data-page="eventi"] {
+    background-color: #f8f8f8 !important;
+    background-image: none !important;
+}
+
+body[data-page="faq"] {
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(122,252,255,.06), transparent),
+                radial-gradient(1000px 500px at 90% 90%, rgba(255,92,138,.04), transparent),
+                #0f0f17 !important;
+}
+
+body[data-page="mistero"] {
+    background-color: #f8f8f8 !important;
+    background-image: none !important;
+}
+
+body[data-page="oroscopo"] {
+    background-color: #f8f8f8 !important;
+    background-image: none !important;
+}
+
+body[data-page="prodotti"] {
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
 /* scritta verticale sul lato sinistro */
 .side-tag {
     position: fixed;

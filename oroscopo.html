@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <style>
     :root{--bg:#f8f8f8;--muted:#555}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#222}
+    body{margin:0;color:#222;padding-bottom:80px}
     .wrap{max-width:1100px;margin:0 auto;padding:18px;box-sizing:border-box}
     .header{text-align:center;padding:18px}
     h1{font-size:clamp(1.6rem,4vw,2.4rem);margin:.2rem 0}
@@ -16,10 +16,27 @@
     .player iframe{width:100%;height:42px;border:0}
     .immagini{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:18px}
     .immagini img{max-width:100%;height:auto;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+    
+    /* Pulsante Homepage */
+    .home-button-container{text-align:center;margin-top:40px;padding:20px;display:flex;flex-direction:column;gap:15px}
+      .home-button-container .btn{max-width:300px;margin:0 auto;padding:20px 40px;font-size:1.1rem;width:100%;font-family:inherit}
+    
+    /* Dubbio Astrologico box */
+    .dubbio-box{background:rgba(255,255,255,0.5);border:2px solid #14213d;border-radius:10px;padding:20px;margin:20px auto;max-width:500px;text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:600;color:#14213d;transition:filter 0.3s ease}
+    .dubbio-box.blur{filter:blur(8px);pointer-events:none}
+    .dubbio-box.active{background:rgba(122,252,255,0.15);border-color:#7afcff;animation:pulse 0.5s ease-out}
+    @keyframes pulse{0%{transform:scale(0.95);opacity:0.5}100%{transform:scale(1);opacity:1}}
+    
     @media(min-width:700px){.immagini img{width:320px}}
+    @media(max-width:600px){
+      body{padding-bottom:100px}
+      .wrap{padding:12px}
+      .header{padding:12px}
+      .home-button-container{margin-top:30px;padding:15px}
+    }
   </style>
 </head>
-<body>
+<body data-page="oroscopo">
   <div class="wrap">
     <header class="header">
       <h1>ASTRODUBBIO</h1>
@@ -34,10 +51,45 @@
       <img src="css/images/dgsa - 2.png" alt="Immagine locale 1">
     </div>
 
+    <div class="dubbio-box blur" id="dubbio-output">???</div>
+
+    <div class="home-button-container">
+      <button id="genera-dubbio" class="btn" style="cursor:pointer">GENERA DUBBIO ASTROLOGICO</button>
+      <a href="index.html" class="btn">Homepage</a>
+    </div>
+
     <footer style="text-align:center;margin-top:22px;color:#666">&copy; <span id="year"></span> DUBBIOGUSTO</footer>
   </div>
 
   <script>
+    // Lista di dubbi astrologici
+    const dubbi = [
+      "Il tuo segno zodiacale è veramente quello che pensi?",
+      "Che cos'è la retrogradazione di Mercurio se non una prova schiacciante della relatività generale?",
+      "I tuoi avi stanno sabotando il tuo partner",
+      "Credi che la luna abbia più influenza su te o tu su di lei?",
+      "L'ultima volta che hai avuto un orgasmo non avresti dovuto",
+      "Corri forte, la gente dice sei statx tu",
+      "Il tuo tema natale è pieno di errori",
+      "L'ultima volta che hai pianto non avresti dovuto",
+      "Le fasi Lunari sanno davvero cosa vuoi dalla vita",
+      "La prossima notte di luna nuova è meglio che tu abbia lo stomaco vuoto",
+      "Il tuo elemento zodiacale non è tuo",
+      "Se la luna è in vergine, lavati la faccia sennò non farlo fino alla prossima",
+      "L'orologio del dottore che ha segnato la tua nascita era avanti di almeno 45 minuti",
+      "Esisti anche quando non pensi purtroppo",
+      "Esisti prima di quello che pensi",
+    ];
+
+    document.getElementById('genera-dubbio').addEventListener('click', function() {
+      const dubbio = dubbi[Math.floor(Math.random() * dubbi.length)];
+      const output = document.getElementById('dubbio-output');
+      output.textContent = dubbio;
+      output.classList.remove('blur');
+      output.classList.add('active');
+      setTimeout(() => output.classList.remove('active'), 500);
+    });
+
     document.getElementById('year').textContent = new Date().getFullYear();
     // prova a mettere in play il player dopo un'interazione
     document.addEventListener('click', ()=>{

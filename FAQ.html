@@ -63,7 +63,7 @@
     @media (max-width:720px){.stage{border-radius:18px;padding:14px}.crazy-text{font-size:clamp(14px,3.4vmin,28px);left:14px;bottom:12px}}
   </style>
 </head>
-<body>
+<body data-page="faq">
   <div class="stage" id="stage">
     <div class="particle p1"></div>
     <div class="particle p2"></div>
@@ -181,5 +181,10 @@
     wrap.addEventListener('click', ()=>{ if ('speechSynthesis' in window){ const u = new SpeechSynthesisUtterance('Boom! Festa di coriandoli!'); speechSynthesis.cancel(); speechSynthesis.speak(u); } });
 
   </script>
+  <aside class="right-panel">
+    <div class="buttons">
+      <a href="index.html" class="btn">Homepage</a>
+    </div>
+  </aside>
 </body>
 </html>
