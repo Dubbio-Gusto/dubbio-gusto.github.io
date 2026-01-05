@@ -22,8 +22,10 @@
       .home-button-container .btn{max-width:300px;margin:0 auto;padding:20px 40px;font-size:1.1rem;width:100%;font-family:inherit}
     
     /* Dubbio Astrologico box */
-    .dubbio-box{background:rgba(255,255,255,0.5);border:2px solid #14213d;border-radius:10px;padding:20px;margin:20px auto;max-width:500px;text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:600;color:#14213d;transition:filter 0.3s ease}
-    .dubbio-box.blur{filter:blur(8px);pointer-events:none}
+    /* .reveal-area avvolge immagine + box: l'effetto blur si applica qui */
+    .reveal-area{transition:filter 0.3s ease}
+    .reveal-area.blur{filter:blur(8px);pointer-events:none}
+    .dubbio-box{background:rgba(255,255,255,0.5);border:2px solid #14213d;border-radius:10px;padding:20px;margin:20px auto;max-width:500px;text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:600;color:#14213d}
     .dubbio-box.active{background:rgba(122,252,255,0.15);border-color:#7afcff;animation:pulse 0.5s ease-out}
     @keyframes pulse{0%{transform:scale(0.95);opacity:0.5}100%{transform:scale(1);opacity:1}}
     
@@ -47,11 +49,13 @@
       <iframe id="bandcamp-player" src="https://bandcamp.com/EmbeddedPlayer/album=4240241816/size=small/bgcol=ffffff/linkcol=0687f5/track=628322033/transparent=true/" seamless></iframe>
     </div>
 
-    <div class="immagini">
-      <img src="css/images/dgsa - 2.png" alt="Immagine locale 1">
-    </div>
+    <div class="reveal-area blur">
+      <div class="immagini">
+        <img src="css/images/dgsa - 2.png" alt="Immagine locale 1">
+      </div>
 
-    <div class="dubbio-box blur" id="dubbio-output">???</div>
+      <div class="dubbio-box" id="dubbio-output">???</div>
+    </div>
 
     <div class="home-button-container">
       <button id="genera-dubbio" class="btn" style="cursor:pointer">GENERA DUBBIO ASTROLOGICO</button>
@@ -81,14 +85,29 @@
       "Esisti prima di quello che pensi",
     ];
 
-    document.getElementById('genera-dubbio').addEventListener('click', function() {
-      const dubbio = dubbi[Math.floor(Math.random() * dubbi.length)];
-      const output = document.getElementById('dubbio-output');
-      output.textContent = dubbio;
-      output.classList.remove('blur');
-      output.classList.add('active');
-      setTimeout(() => output.classList.remove('active'), 500);
-    });
+    (function(){
+      let used = false;
+      // timer stored globally to allow clearing between clicks
+      window.__dubbioBlurTimer = window.__dubbioBlurTimer || null;
+      document.getElementById('genera-dubbio').addEventListener('click', function() {
+        const output = document.getElementById('dubbio-output');
+        const reveal = document.querySelector('.reveal-area');
+        const message = used ? "BASTA CLICCARE!! UN DUBBIO TI BASTA E AVANZA PER ADESSO!" : dubbi[Math.floor(Math.random() * dubbi.length)];
+        output.textContent = message;
+        used = true;
+        // mostra contenuto rimuovendo il blur sull'area che contiene immagine + box
+        if (reveal) reveal.classList.remove('blur');
+        output.classList.add('active');
+
+        // ripristina il blur dopo 6 secondi (reset timer ad ogni click)
+        if (window.__dubbioBlurTimer) clearTimeout(window.__dubbioBlurTimer);
+        window.__dubbioBlurTimer = setTimeout(()=>{
+          if (reveal) reveal.classList.add('blur');
+        }, 6000);
+
+        setTimeout(() => output.classList.remove('active'), 500);
+      });
+    })();
 
     document.getElementById('year').textContent = new Date().getFullYear();
     // prova a mettere in play il player dopo un'interazione
