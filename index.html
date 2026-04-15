@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body data-page="home">
+    <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+        <div class="intro-content">
+            <img src="css/images/Teaser_finale.gif" alt="Intro animation" class="intro-gif">
+        </div>
+    </div>
     <div class="side-tag">DUBBIO GUSTO ???</div>
     <main>
         <div class="container-two">
@@ -33,6 +38,36 @@
     </footer>
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
+            (function() {
+                const storageKey = 'introShown';
+                const overlay = document.getElementById('intro-overlay');
+                const gif = overlay.querySelector('.intro-gif');
+                const timeoutMs = 4500;
+
+                if (!window.localStorage) {
+                    overlay.style.display = 'none';
+                    return;
+                }
+
+                if (localStorage.getItem(storageKey) === 'true') {
+                    overlay.style.display = 'none';
+                    return;
+                }
+
+                const hideOverlay = () => {
+                    overlay.classList.add('intro-hidden');
+                    localStorage.setItem(storageKey, 'true');
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 500);
+                };
+
+                gif.addEventListener('load', () => {
+                    window.setTimeout(hideOverlay, timeoutMs);
+                });
+
+                gif.addEventListener('error', hideOverlay);
+            })();
         </script>
 </body>
 </html>
