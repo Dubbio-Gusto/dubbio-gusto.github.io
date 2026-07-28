@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Dubbio Gusto</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body data-page="shop">
+    <div class="side-tag">SHOP</div>
+
+    <main class="shop-page">
+        <header class="shop-header">
+            <a class="shop-back" href="index.html">← Torna alla home</a>
+            <h1>Shop</h1>
+            <p>Scopri i prodotti in vendita e sfoglia le immagini di ogni collezione.</p>
+        </header>
+
+        <section class="product-section">
+            <div class="product-carousel" data-carousel>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" type="button" aria-label="Immagini precedenti">←</button>
+                    <button class="carousel-btn next" type="button" aria-label="Immagini successive">→</button>
+                </div>
+                <div class="carousel-track">
+                    <article class="carousel-card">
+                        <img src="css/images/cuscinocane2.jpeg" alt="Prodotto 1 immagine 1" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/cuscinocane1.jpeg" alt="Prodotto 1 immagine 2" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/cuscinocanepush.jpg" alt="Prodotto 1 immagine 3" loading="lazy">
+                    </article>
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Cuscino del cane che abbaia</h2>
+                <p>Una proposta semplice e distintiva, pensata per chi ama un look curato e originale.</p>
+                <p class="price">€ 1000,00</p>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="product-carousel" data-carousel>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" type="button" aria-label="Immagini precedenti">←</button>
+                    <button class="carousel-btn next" type="button" aria-label="Immagini successive">→</button>
+                </div>
+                <div class="carousel-track">
+                    <article class="carousel-card">
+                        <img src="css/images/coniglio2.jpeg" alt="Prodotto 2 immagine 1" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/coniglio4.jpeg" alt="Prodotto 2 immagine 2" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/coniglio5.jpeg" alt="Prodotto 2 immagine 3" loading="lazy">
+                    </article>
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Cuscino del coniglio</h2>
+                <p>Da portare dove vuoi. Disponibile in qualsiasi colore e fantasia. Potremmo anche farci delle borsette. </p>
+                <p class="price">€ 15,00</p>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="product-carousel" data-carousel>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" type="button" aria-label="Immagini precedenti">←</button>
+                    <button class="carousel-btn next" type="button" aria-label="Immagini successive">→</button>
+                </div>
+                <div class="carousel-track">
+                    <article class="carousel-card">
+                        <img src="css/images/calamite4.jpeg" alt="Prodotto 3 immagine 1" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/calamite1.jpeg" alt="Prodotto 3 immagine 2" loading="lazy">
+                    </article>
+                    <article class="carousel-card">
+                        <img src="css/images/calamite2.jpeg" alt="Prodotto 3 immagine 3" loading="lazy">
+                    </article>
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Calamite</h2>
+                <p>Un prodotto esclusivo da collezione, perfetto per chi ama il lato più iconico del brand.</p>
+                <p class="price">€ 35,00</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> DUBBIOGUSTO
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+            const track = carousel.querySelector('.carousel-track');
+            const prev = carousel.querySelector('.prev');
+            const next = carousel.querySelector('.next');
+
+            const step = () => track.clientWidth * 0.9;
+
+            prev?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+            next?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+        });
+    </script>
+</body>
+</html>

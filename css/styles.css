@@ -233,4 +233,147 @@ footer {
     .btn { font-size: 1.05rem; padding: 20px 16px; }
 }
 
+body[data-page="shop"] {
+    background: linear-gradient(135deg, #fff7ec 0%, #f7f1ff 100%) !important;
+    color: #14213d;
+}
+
+.shop-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 24px 110px;
+}
+
+.shop-header {
+    margin-bottom: 32px;
+}
+
+.shop-back {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #2e5b8a;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.shop-header h1 {
+    font-family: 'Kindergarten', Arial, sans-serif;
+    font-size: 3rem;
+    margin: 0 0 8px;
+    color: #14213d;
+}
+
+.shop-header p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+.product-section {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(20,33,61,0.08);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 16px 32px rgba(20,33,61,0.08);
+    margin-bottom: 24px;
+}
+
+.product-carousel {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.carousel-btn {
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(20,33,61,0.8);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.carousel-btn:hover {
+    background: #2e5b8a;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 0 4px;
+}
+
+.carousel-track::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carousel-track::-webkit-scrollbar-thumb {
+    background: rgba(20,33,61,0.25);
+    border-radius: 999px;
+}
+
+.carousel-card {
+    flex: 0 0 min(80%, 320px);
+    scroll-snap-align: start;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(20,33,61,0.1);
+}
+
+.carousel-card img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.product-info h2 {
+    margin: 0 0 8px;
+    font-size: 1.4rem;
+}
+
+.product-info p {
+    margin: 0 0 8px;
+    line-height: 1.6;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2e5b8a;
+}
+
+@media (max-width: 700px) {
+    .shop-page {
+        padding: 36px 16px 110px;
+    }
+
+    .shop-header h1 {
+        font-size: 2.3rem;
+    }
+
+    .carousel-card {
+        flex-basis: 85%;
+    }
+
+    .carousel-card img {
+        height: 220px;
+    }
+}
+
 /* fine */
