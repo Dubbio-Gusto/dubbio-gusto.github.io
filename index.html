@@ -9,7 +9,7 @@
 <body data-page="home">
     <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
         <div class="intro-content">
-            <img src="css/images/Teaser_finale.gif" alt="Intro animation" class="intro-gif">
+            <img src="css/images/canesito.gif" alt="Intro animation" class="intro-gif">
         </div>
     </div>
     <div class="side-tag">DUBBIO GUSTO ???</div>
@@ -39,34 +39,47 @@
         <script>
             document.getElementById('year').textContent = new Date().getFullYear();
             (function() {
-                const storageKey = 'introShown';
                 const overlay = document.getElementById('intro-overlay');
                 const gif = overlay.querySelector('.intro-gif');
-                const timeoutMs = 4500;
+                const barkAudio = new Audio('css/images/BARK3+noise (1).mp3');
+                barkAudio.preload = 'auto';
+                barkAudio.volume = 0.85;
+                barkAudio.load();
 
-                if (!window.localStorage) {
-                    overlay.style.display = 'none';
-                    return;
-                }
-
-                if (localStorage.getItem(storageKey) === 'true') {
-                    overlay.style.display = 'none';
-                    return;
-                }
+                const spawnSparks = (x, y) => {
+                    const count = 8;
+                    for (let i = 0; i < count; i++) {
+                        const spark = document.createElement('span');
+                        spark.className = 'firework-spark';
+                        const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.4;
+                        const distance = 28 + Math.random() * 18;
+                        const dx = Math.cos(angle) * distance;
+                        const dy = Math.sin(angle) * distance;
+                        spark.style.left = `${x}px`;
+                        spark.style.top = `${y}px`;
+                        spark.style.setProperty('--dx', `${dx}px`);
+                        spark.style.setProperty('--dy', `${dy}px`);
+                        document.body.appendChild(spark);
+                        spark.addEventListener('animationend', () => spark.remove());
+                    }
+                };
 
                 const hideOverlay = () => {
                     overlay.classList.add('intro-hidden');
-                    localStorage.setItem(storageKey, 'true');
                     setTimeout(() => {
                         overlay.style.display = 'none';
                     }, 500);
                 };
 
-                gif.addEventListener('load', () => {
-                    window.setTimeout(hideOverlay, timeoutMs);
-                });
-
                 gif.addEventListener('error', hideOverlay);
+                gif.addEventListener('click', (event) => {
+                    barkAudio.currentTime = 0;
+                    barkAudio.play().catch(() => {
+                        // Playback may be blocked by browser policy, but overlay still hides.
+                    });
+                    spawnSparks(event.clientX, event.clientY);
+                    hideOverlay();
+                });
             })();
         </script>
 </body>
