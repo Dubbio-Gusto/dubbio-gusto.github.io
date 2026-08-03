@@ -259,20 +259,62 @@ footer {
     .container-two { padding: 80px; }
 }
 @media (max-width: 900px) {
-    .container-two { flex-direction: column; padding: 20px 16px 90px; gap: 18px; }
-    .left { width: 100%; justify-content: center; padding-left: 0; }
-    .home-logo { width: min(100%, 560px); }
-    .right-panel { width: 100%; padding: 0; }
-    .right-panel .buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 100%; gap: 12px; }
-    .kindergarten-title { font-size: 3.2rem; text-align: center; }
-    .btn { padding: 14px 12px; font-size: 0.95rem; border-radius: 14px; }
+    .container-two {
+        flex-direction: column;
+        padding: 20px 16px 100px;
+        gap: 18px;
+    }
+    .left {
+        width: 100%;
+        justify-content: center;
+        padding-left: 0;
+    }
+    .home-logo {
+        width: min(100%, 560px);
+    }
+    .right-panel {
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+    }
+    .right-panel .buttons {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        width: 100%;
+        gap: 12px;
+    }
+    .kindergarten-title {
+        font-size: 3.2rem;
+        text-align: center;
+    }
+    .btn {
+        padding: 16px 14px;
+        font-size: 1rem;
+        border-radius: 14px;
+        min-height: 84px;
+        aspect-ratio: auto;
+    }
 }
 @media (max-width: 480px) {
-    .container-two { padding: 16px 12px 90px; gap: 14px; }
-    .home-logo { width: min(100%, 420px); }
-    .right-panel .buttons { grid-template-columns: 1fr; gap: 10px; }
-    .kindergarten-title { font-size: 2.4rem; }
-    .btn { font-size: 0.9rem; padding: 12px; aspect-ratio: auto; min-height: 72px; }
+    .container-two {
+        padding: 14px 12px 100px;
+        gap: 12px;
+    }
+    .home-logo {
+        width: min(100%, 420px);
+    }
+    .right-panel .buttons {
+        gap: 10px;
+        max-width: 100%;
+    }
+    .kindergarten-title {
+        font-size: 2.4rem;
+    }
+    .btn {
+        font-size: 0.95rem;
+        padding: 14px 12px;
+        min-height: 76px;
+    }
 }
 
 body[data-page="shop"] {
