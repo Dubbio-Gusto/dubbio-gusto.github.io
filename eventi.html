@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventi - Dubbio Gusto</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body data-page="eventi">
+    <div class="side-tag">EVENTI</div>
+
+    <main class="events-page">
+        <header class="events-header">
+            <a class="shop-back" href="index.html">← Torna alla home</a>
+            <h1>Eventi</h1>
+            <p>Una raccolta di foto e video degli eventi passati. Carica i tuoi file preferiti e li vedrai subito nel carosello.</p>
+        </header>
+
+        <section class="event-upload-panel">
+            <label class="upload-btn" for="mediaUpload">
+                <input id="mediaUpload" type="file" accept="image/*,video/*" multiple>
+                Carica foto o video
+            </label>
+            <p class="upload-tip">I media caricati vengono aggiunti subito alla galleria e possono essere sfogliati a scorrimento.</p>
+        </section>
+
+        <section class="events-gallery" aria-label="Galleria eventi">
+            <div class="gallery-stage">
+                <button class="gallery-arrow prev" type="button" aria-label="Media precedente">←</button>
+                <button class="gallery-arrow next" type="button" aria-label="Media successivo">→</button>
+                <div id="gallerySlide" class="gallery-slide" aria-live="polite"></div>
+            </div>
+
+            <div class="gallery-meta">
+                <p id="slideCaption">Festival 2024 - momenti vissuti insieme</p>
+            </div>
+
+            <div id="galleryThumbs" class="gallery-thumbs" aria-label="Miniature della galleria"></div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> DUBBIOGUSTO
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const defaultMedia = [
+            { type: 'image', src: 'css/images/cuscinocane2.jpeg', caption: 'Festival 2024 - momenti vissuti insieme' },
+            { type: 'image', src: 'css/images/coniglio2.jpeg', caption: 'Stand e dettagli handmade' },
+            { type: 'image', src: 'css/images/calamite1.jpeg', caption: 'Collezione e materiali originali' },
+            { type: 'image', src: 'css/images/coniglio5.jpeg', caption: 'Atmosfera del backstage' }
+        ];
+
+        const gallerySlide = document.getElementById('gallerySlide');
+        const slideCaption = document.getElementById('slideCaption');
+        const galleryThumbs = document.getElementById('galleryThumbs');
+        const mediaUpload = document.getElementById('mediaUpload');
+        const prevBtn = document.querySelector('.gallery-arrow.prev');
+        const nextBtn = document.querySelector('.gallery-arrow.next');
+
+        let mediaItems = [...defaultMedia];
+        let currentIndex = 0;
+
+        function getItemMarkup(item) {
+            if (item.type === 'video') {
+                return `
+                    <video controls preload="metadata" playsinline>
+                        <source src="${item.src}" type="${item.type === 'video' ? 'video/mp4' : 'video/webm'}">
+                        Il tuo browser non supporta i video HTML5.
+                    </video>
+                `;
+            }
+
+            return `<img src="${item.src}" alt="${item.caption}" loading="eager">`;
+        }
+
+        function renderThumbs() {
+            galleryThumbs.innerHTML = '';
+
+            mediaItems.forEach((item, index) => {
+                const thumbBtn = document.createElement('button');
+                thumbBtn.type = 'button';
+                thumbBtn.className = 'gallery-thumb' + (index === currentIndex ? ' active' : '');
+                thumbBtn.setAttribute('aria-label', `Mostra media ${index + 1}`);
+
+                const thumbContent = item.type === 'video'
+                    ? '<span class="video-badge">🎬</span>'
+                    : `<img src="${item.src}" alt="${item.caption}">`;
+
+                thumbBtn.innerHTML = thumbContent;
+                thumbBtn.addEventListener('click', () => {
+                    currentIndex = index;
+                    renderGallery();
+                });
+
+                galleryThumbs.appendChild(thumbBtn);
+            });
+        }
+
+        function renderGallery() {
+            const item = mediaItems[currentIndex];
+            if (!item) return;
+
+            gallerySlide.innerHTML = getItemMarkup(item);
+            slideCaption.textContent = item.caption;
+            renderThumbs();
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % mediaItems.length;
+            renderGallery();
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+            renderGallery();
+        }
+
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') showNext();
+            if (event.key === 'ArrowLeft') showPrev();
+        });
+
+        mediaUpload.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files || []);
+            if (!files.length) return;
+
+            files.forEach((file) => {
+                const isVideo = file.type.startsWith('video/');
+                const isImage = file.type.startsWith('image/');
+
+                if (!isVideo && !isImage) return;
+
+                const media = {
+                    type: isVideo ? 'video' : 'image',
+                    src: URL.createObjectURL(file),
+                    caption: file.name || 'Media caricata'
+                };
+
+                mediaItems.push(media);
+            });
+
+            currentIndex = mediaItems.length - files.length;
+            renderGallery();
+            event.target.value = '';
+        });
+
+        renderGallery();
+        setInterval(showNext, 6000);
+    </script>
+</body>
+</html>
