@@ -13,30 +13,10 @@
         <header class="events-header">
             <a class="shop-back" href="index.html">← Torna alla home</a>
             <h1>Eventi</h1>
-            <p>Una raccolta di foto e video degli eventi passati. Carica i tuoi file preferiti e li vedrai subito nel carosello.</p>
+            <p>Una raccolta di foto e video per rivivere i momenti delle edizioni passate del festival.</p>
         </header>
 
-        <section class="event-upload-panel">
-            <label class="upload-btn" for="mediaUpload">
-                <input id="mediaUpload" type="file" accept="image/*,video/*" multiple>
-                Carica foto o video
-            </label>
-            <p class="upload-tip">I media caricati vengono aggiunti subito alla galleria e possono essere sfogliati a scorrimento.</p>
-        </section>
-
-        <section class="events-gallery" aria-label="Galleria eventi">
-            <div class="gallery-stage">
-                <button class="gallery-arrow prev" type="button" aria-label="Media precedente">←</button>
-                <button class="gallery-arrow next" type="button" aria-label="Media successivo">→</button>
-                <div id="gallerySlide" class="gallery-slide" aria-live="polite"></div>
-            </div>
-
-            <div class="gallery-meta">
-                <p id="slideCaption">Festival 2024 - momenti vissuti insieme</p>
-            </div>
-
-            <div id="galleryThumbs" class="gallery-thumbs" aria-label="Miniature della galleria"></div>
-        </section>
+        <div id="eventEditions" class="event-editions"></div>
     </main>
 
     <footer>
@@ -46,28 +26,91 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        const defaultMedia = [
-            { type: 'image', src: 'css/images/cuscinocane2.jpeg', caption: 'Festival 2024 - momenti vissuti insieme' },
-            { type: 'image', src: 'css/images/coniglio2.jpeg', caption: 'Stand e dettagli handmade' },
-            { type: 'image', src: 'css/images/calamite1.jpeg', caption: 'Collezione e materiali originali' },
-            { type: 'image', src: 'css/images/coniglio5.jpeg', caption: 'Atmosfera del backstage' }
+        const editions = [
+            {
+                title: 'Volume 1°',
+                media: [
+                    { type: 'image', src: 'css/images/FotoEventi/locandinaVol1_noaddress.png', caption: 'Flyer' },
+                    { type: 'image', src: 'css/images/FotoEventi/1edizione_01.jpg', caption: 'blabla' },
+                    { type: 'image', src: 'css/images/FotoEventi/1edizione_02.jpg', caption: 'blabla' },
+                    { type: 'image', src: 'css/images/FotoEventi/1edizione_03.jpg', caption: 'blablalba' },
+                    { type: 'video', src: 'css/images/FotoEventi/1edizione_vid_01.mp4', caption: 'Cambiocasa live' }
+                ]
+            },
+            {
+                title: 'Volume 2°',
+                media: [
+                    { type: 'image', src: 'css/images/FotoEventi/locandinaVol2_noaddress.jpg', caption: 'Flyer' },
+                    { type: 'video', src: 'css/images/FotoEventi/TeaserVideo2edizione.mp4', caption: 'Trailer di restituzione con musica estratta da uno dei live' },
+                    {
+                        type: 'peertube',
+                        src: 'https://peertube.uno/videos/embed/aQfreV3pQNhF2ah9n4BhWC',
+                        caption: 'LIDIA_JACOPO live'
+                    },
+                    {   
+                        type: 'peertube',
+                        src: 'https://peertube.uno/videos/embed/qgPXX3LXiarAjaonRVfUWG',
+                        caption: 'FERRAGUZZO electronic live'
+                        
+                    },
+                    {   
+                        type: 'peertube',
+                        src: 'https://peertube.uno/videos/embed/2WVY5bCExsH2C12zEyWRxm',
+                        caption: 'DAVIDE FRAMMENTATO reading live'
+
+                        
+                    }
+                ]
+            },
+            { title: 'Volume 3°', media: [
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_locandina.png', caption: 'Flyer fermo' },
+                { type: 'video', src: 'css/images/FotoEventi/TEASERVideo3edizione.mp4', caption: 'Flyer animato' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_01.jpeg', caption: 'blabla' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_02.jpg', caption: 'blabla' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_03.jpeg', caption: 'blablalba' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_05.jpeg', caption: 'blablalbsdada' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_06.jpeg', caption: 'blablalbabb' },
+                { type: 'image', src: 'css/images/FotoEventi/3edizione_07.jpeg', caption: 'blablalfsaba' },
+                { type: 'video', src: 'css/images/FotoEventi/3edizione_vid_01.mp4', caption: 'Graz live' }
+
+            ] },
+            { title: 'Volume 4°', media: [
+                { type: 'image', src: 'css/images/FotoEventi/4edizione_01.jpg', caption: 'Flyer appena sfornato. Molto buono' },
+                { type: 'image', src: 'css/images/FotoEventi/4edizione_02.jpg', caption: 'Lineup del festival il mattino dopo. Marmellata su carta forno' },
+                {   
+                        type: 'peertube',
+                        src: 'https://peertube.uno/videos/embed/nYoP3VjBubWkuSrPAwPwBX',
+                        caption: 'JascoQ live'
+
+                        
+                    }] }
         ];
-
-        const gallerySlide = document.getElementById('gallerySlide');
-        const slideCaption = document.getElementById('slideCaption');
-        const galleryThumbs = document.getElementById('galleryThumbs');
-        const mediaUpload = document.getElementById('mediaUpload');
-        const prevBtn = document.querySelector('.gallery-arrow.prev');
-        const nextBtn = document.querySelector('.gallery-arrow.next');
-
-        let mediaItems = [...defaultMedia];
-        let currentIndex = 0;
+        const eventEditions = document.getElementById('eventEditions');
 
         function getItemMarkup(item) {
+            if (item.type === 'peertube') {
+                return `
+                    <iframe
+                        title="${item.caption}"
+                        src="${item.src}"
+                        allow="fullscreen"
+                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                        loading="lazy">
+                    </iframe>
+                `;
+            }
+
             if (item.type === 'video') {
+                const extension = item.src.split('.').pop().toLowerCase();
+                const videoType = {
+                    mp4: 'video/mp4',
+                    webm: 'video/webm',
+                    ogg: 'video/ogg'
+                }[extension];
+
                 return `
                     <video controls preload="metadata" playsinline>
-                        <source src="${item.src}" type="${item.type === 'video' ? 'video/mp4' : 'video/webm'}">
+                        <source src="${item.src}"${videoType ? ` type="${videoType}"` : ''}>
                         Il tuo browser non supporta i video HTML5.
                     </video>
                 `;
@@ -76,82 +119,119 @@
             return `<img src="${item.src}" alt="${item.caption}" loading="eager">`;
         }
 
-        function renderThumbs() {
-            galleryThumbs.innerHTML = '';
+        function createCarousel(edition) {
+            const section = document.createElement('section');
+            section.className = 'events-gallery';
 
-            mediaItems.forEach((item, index) => {
-                const thumbBtn = document.createElement('button');
-                thumbBtn.type = 'button';
-                thumbBtn.className = 'gallery-thumb' + (index === currentIndex ? ' active' : '');
-                thumbBtn.setAttribute('aria-label', `Mostra media ${index + 1}`);
+            const heading = document.createElement('h2');
+            heading.className = 'edition-title';
+            heading.textContent = edition.title;
+            section.appendChild(heading);
 
-                const thumbContent = item.type === 'video'
-                    ? '<span class="video-badge">🎬</span>'
-                    : `<img src="${item.src}" alt="${item.caption}">`;
+            const galleryStage = document.createElement('div');
+            galleryStage.className = 'gallery-stage';
+            galleryStage.tabIndex = 0;
+            galleryStage.setAttribute('role', 'region');
+            galleryStage.setAttribute('aria-label', `Carosello ${edition.title}`);
 
-                thumbBtn.innerHTML = thumbContent;
-                thumbBtn.addEventListener('click', () => {
-                    currentIndex = index;
-                    renderGallery();
+            if (!edition.media.length) {
+                galleryStage.classList.add('gallery-stage-empty');
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'gallery-empty';
+                emptyMessage.textContent = 'Foto e video di questa edizione in arrivo.';
+                galleryStage.appendChild(emptyMessage);
+                section.appendChild(galleryStage);
+                return section;
+            }
+
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'gallery-arrow prev';
+            prevBtn.type = 'button';
+            prevBtn.setAttribute('aria-label', 'Media precedente');
+            prevBtn.textContent = '←';
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'gallery-arrow next';
+            nextBtn.type = 'button';
+            nextBtn.setAttribute('aria-label', 'Media successivo');
+            nextBtn.textContent = '→';
+
+            const gallerySlide = document.createElement('div');
+            gallerySlide.className = 'gallery-slide';
+            gallerySlide.setAttribute('aria-live', 'polite');
+            galleryStage.append(prevBtn, nextBtn, gallerySlide);
+
+            const caption = document.createElement('p');
+            caption.className = 'gallery-caption';
+
+            const galleryThumbs = document.createElement('div');
+            galleryThumbs.className = 'gallery-thumbs';
+            galleryThumbs.setAttribute('aria-label', `Miniature ${edition.title}`);
+
+            section.append(galleryStage, caption, galleryThumbs);
+
+            let currentIndex = 0;
+
+            function renderThumbs() {
+                galleryThumbs.innerHTML = '';
+
+                edition.media.forEach((item, index) => {
+                    const thumbBtn = document.createElement('button');
+                    thumbBtn.type = 'button';
+                    thumbBtn.className = 'gallery-thumb' + (index === currentIndex ? ' active' : '');
+                    thumbBtn.setAttribute('aria-label', `Mostra: ${item.caption}`);
+                    thumbBtn.innerHTML = item.type === 'video' || item.type === 'peertube'
+                        ? '<span class="video-badge" aria-hidden="true">▶</span>'
+                        : `<img src="${item.src}" alt="">`;
+                    thumbBtn.addEventListener('click', () => {
+                        currentIndex = index;
+                        renderGallery();
+                    });
+                    galleryThumbs.appendChild(thumbBtn);
                 });
+            }
 
-                galleryThumbs.appendChild(thumbBtn);
-            });
-        }
+            function renderGallery() {
+                const item = edition.media[currentIndex];
+                gallerySlide.innerHTML = getItemMarkup(item);
+                caption.textContent = item.caption;
+                renderThumbs();
 
-        function renderGallery() {
-            const item = mediaItems[currentIndex];
-            if (!item) return;
+                const video = gallerySlide.querySelector('video');
+                if (video) video.addEventListener('ended', showNext);
+            }
 
-            gallerySlide.innerHTML = getItemMarkup(item);
-            slideCaption.textContent = item.caption;
-            renderThumbs();
-        }
+            function showNext() {
+                currentIndex = (currentIndex + 1) % edition.media.length;
+                renderGallery();
+            }
 
-        function showNext() {
-            currentIndex = (currentIndex + 1) % mediaItems.length;
-            renderGallery();
-        }
+            function showPrev() {
+                currentIndex = (currentIndex - 1 + edition.media.length) % edition.media.length;
+                renderGallery();
+            }
 
-        function showPrev() {
-            currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
-            renderGallery();
-        }
-
-        prevBtn.addEventListener('click', showPrev);
-        nextBtn.addEventListener('click', showNext);
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight') showNext();
-            if (event.key === 'ArrowLeft') showPrev();
-        });
-
-        mediaUpload.addEventListener('change', (event) => {
-            const files = Array.from(event.target.files || []);
-            if (!files.length) return;
-
-            files.forEach((file) => {
-                const isVideo = file.type.startsWith('video/');
-                const isImage = file.type.startsWith('image/');
-
-                if (!isVideo && !isImage) return;
-
-                const media = {
-                    type: isVideo ? 'video' : 'image',
-                    src: URL.createObjectURL(file),
-                    caption: file.name || 'Media caricata'
-                };
-
-                mediaItems.push(media);
+            prevBtn.addEventListener('click', showPrev);
+            nextBtn.addEventListener('click', showNext);
+            galleryStage.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight') showNext();
+                if (event.key === 'ArrowLeft') showPrev();
             });
 
-            currentIndex = mediaItems.length - files.length;
-            renderGallery();
-            event.target.value = '';
-        });
+            if (edition.media.length < 2) {
+                prevBtn.hidden = true;
+                nextBtn.hidden = true;
+                galleryThumbs.hidden = true;
+            }
 
-        renderGallery();
-        setInterval(showNext, 6000);
+            renderGallery();
+            return section;
+        }
+
+        editions.forEach((edition) => {
+            // Aggiungi qui le foto e i video statici di ciascuna edizione.
+            eventEditions.appendChild(createCarousel(edition));
+        });
     </script>
 </body>
 </html>
